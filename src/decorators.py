@@ -1,12 +1,13 @@
 import time
+
 from functools import wraps
 
 
-def log(filename):
+def log(filename=None):
     """Декоратор, который автоматически логирует начало и конец выполнения функции,
-     а также ее результаты или возникшие ошибки."""
+    а также ее результаты или возникшие ошибки."""
     def wrapper(funk):
-        @wraps
+        @wraps(funk)
         def inner(*args, **kwargs):
             try:
                 start_funk = time.time()
