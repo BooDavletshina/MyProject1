@@ -9,18 +9,20 @@ load_dotenv()
 
 api_key = os.getenv("API_KEY")
 
+
 @patch('requests.get')
 def test_get_convert_sum(mock_get, get_transactions):
+    """Тестирование функции для конвертации валюты"""
     mock_get.return_value.json.return_value = {
-                                                  "query": {
-                                                    "amount": 25,
-                                                    "from": "GBP",
-                                                    "to": "JPY"
-                                                  },
-                                                  "result": 3724.305775,
-                                                }
+        "query": {
+            "amount": 25,
+            "from": "GBP",
+            "to": "JPY"
+        },
+        "result": 3724.305775,
+    }
     assert get_convert_sum(get_transactions) == 3724.305775
     mock_get.assert_called_once_with(
         'https://api.apilayer.com/exchangerates_data/convert',
-        headers = {'apikey': api_key},
-        params = {'amount': '77302.31', 'from': 'USD', 'to': 'RUB'})
+        headers={'apikey': api_key},
+        params={'amount': '77302.31', 'from': 'USD', 'to': 'RUB'})
