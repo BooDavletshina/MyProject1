@@ -16,8 +16,8 @@ def get_dict_data_transactions(path: str) -> list:
 def get_transaction_sum(transaction: dict) -> float:
     """Функция, которая принимает на вход транзакцию и возвращает сумму транзакции (amount)
      в рублях"""
-    if transaction["code"] != "RUB":
+    if transaction["operationAmount"]["currency"]["code"] != "RUB":
         convert_sum = get_convert_sum(transaction)
         return float(convert_sum)
     else:
-        return float(transaction["amount"])
+        return float(transaction["operationAmount"]["amount"])

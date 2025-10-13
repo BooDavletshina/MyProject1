@@ -1,17 +1,17 @@
 import os
 from dotenv import load_dotenv
 import requests
-import json
 
 
 load_dotenv()
 
 def get_convert_sum(transaction: dict) -> float:
+    """Функция для конвертации валюты"""
     url = "https://api.apilayer.com/exchangerates_data/convert"
 
     payload = {
-        "amount": transaction["amount"],
-        "from": transaction["code"],
+        "amount": transaction["operationAmount"]["amount"],
+        "from": transaction["operationAmount"]["currency"]["code"],
         "to": "RUB"
     }
 
@@ -22,6 +22,4 @@ def get_convert_sum(transaction: dict) -> float:
 
     result = response.json()
 
-    data = json.loads(result)
-
-    return data["result"]
+    return result["result"]
