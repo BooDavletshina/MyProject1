@@ -12,6 +12,7 @@ def test_get_dict_data_transactions(mock_file):
 
 
 def test_get_dict_data_transactions_file_not_found():
+    """Тестирование функции при отсутствии файла"""
     result = get_dict_data_transactions('non_existent_file.json')
     assert result == []
 
