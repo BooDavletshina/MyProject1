@@ -1,9 +1,10 @@
 import os
-from dotenv import load_dotenv
-import requests
 
+import requests
+from dotenv import load_dotenv
 
 load_dotenv()
+
 
 def get_convert_sum(transaction: dict) -> float:
     """Функция для конвертации валюты"""
@@ -12,7 +13,7 @@ def get_convert_sum(transaction: dict) -> float:
     payload = {
         "amount": transaction["operationAmount"]["amount"],
         "from": transaction["operationAmount"]["currency"]["code"],
-        "to": "RUB"
+        "to": "RUB",
     }
 
     api_key = os.getenv("API_KEY")
