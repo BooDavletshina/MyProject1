@@ -12,6 +12,8 @@ def get_dict_data_transactions(path: str) -> list:
             return transactions
     except FileNotFoundError:
         return []
+    except json.JSONDecodeError:
+        return []
 
 
 def get_transaction_sum(transaction: dict) -> float:
