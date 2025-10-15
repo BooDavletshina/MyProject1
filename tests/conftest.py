@@ -90,3 +90,29 @@ def list_transactions():
             "to": "Счет 14211924144426031657"
         }
     ]
+
+
+@pytest.fixture()
+def get_transactions():
+    return {
+            "id": 608117766,
+            "state": "CANCELED",
+            "date": "2018-10-08T09:05:05.282282",
+            "operationAmount": {"amount": "77302.31", "currency": {"name": "USD", "code": "USD"}},
+            "description": "Перевод с карты на счет",
+            "from": "Visa Gold 6527183396477720",
+            "to": "Счет 38573816654581789611",
+        }
+
+
+@pytest.fixture()
+def get_transactions_rub():
+    return {
+            "id": 484201274,
+            "state": "EXECUTED",
+            "date": "2019-04-11T23:10:21.514616",
+            "operationAmount": {"amount": "62621.51", "currency": {"name": "руб.", "code": "RUB"}},
+            "description": "Перевод с карты на карту",
+            "from": "МИР 8193813157568899",
+            "to": "МИР 9425591958944146",
+        }
