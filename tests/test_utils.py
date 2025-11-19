@@ -16,6 +16,7 @@ def test_get_dict_data_transactions_file_not_found():
     result = get_dict_data_transactions('non_existent_file.json')
     assert result == []
 
+
 @patch('builtins.open', new_callable=mock_open, read_data='[{"key": "value"]')
 def test_get_dict_data_transactions_file_decode_error(mock_file):
     """Тестирование функции при ошибке чтения JSON-файла"""
