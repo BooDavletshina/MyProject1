@@ -5,19 +5,25 @@ import pandas as pd
 
 def read_transactions_csv(path):
     """Функция для считывания финансовых операций из CSV-файла"""
-    with open(path, encoding='utf-8') as file:
-        reader = csv.DictReader(file, delimiter=';')
-        transaction_list = []
-        for row in reader:
-            transaction_list.append(row)
-        return transaction_list
+    try:
+        with open(path, encoding='utf-8') as file:
+            reader = csv.DictReader(file, delimiter=';')
+            transaction_list = []
+            for row in reader:
+                transaction_list.append(row)
+            return transaction_list
+    except FileNotFoundError:
+        return []
 
 
 def read_transactions_excel(path):
     """Функция для считывания финансовых операций из Excel-файла"""
-    excel_data = pd.read_excel(path)
-    dict_data = excel_data.to_dict(orient='records')
-    return dict_data
+    try:
+        excel_data = pd.read_excel(path)
+        dict_data = excel_data.to_dict(orient='records')
+        return dict_data
+    except FileNotFoundError:
+        return []
 
 
 if __name__ == "__main__":
