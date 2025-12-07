@@ -1,6 +1,6 @@
 def filter_by_currency(transactions: list[dict], currency: str):
     """Функция-генератор, которая поочередно выдает транзакции, где валюта операции соответствует заданной"""
-    filter_transactions = filter(lambda x: x["operationAmount"]["currency"]["code"] == currency, transactions)
+    filter_transactions = filter(lambda x: x["currency_code"] == currency, transactions)
 
     for transact in filter_transactions:
         yield transact
