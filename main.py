@@ -5,6 +5,7 @@ from src.search import process_bank_search
 from src.utils import get_dict_data_transactions
 from src.widget import get_date, mask_account_card
 
+
 # Функции для приведения файлов к единому формату
 
 def process_csv_or_excel_data(data_transactions):
