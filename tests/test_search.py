@@ -1,19 +1,9 @@
-import pytest
+from src.search import process_bank_operations, process_bank_search
 
 
-@pytest.fixture
-def list_state() -> list:
-    return [
-            {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
-            {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
-            {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
-            {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
-        ]
-
-
-@pytest.fixture()
-def list_transactions():
-    return [
+def test_process_bank_search(list_transactions):
+    """Тест на корректную фильтрацию транзакций по заданному слову"""
+    assert process_bank_search(list_transactions, "перевод") == [
         {
             "id": 939719570,
             "state": "EXECUTED",
@@ -71,27 +61,12 @@ def list_transactions():
     ]
 
 
-@pytest.fixture()
-def get_transactions():
-    return {
-            "id": 608117766,
-            "state": "CANCELED",
-            "date": "2018-10-08T09:05:05.282282",
-            "operationAmount": {"amount": "77302.31", "currency": {"name": "USD", "code": "USD"}},
-            "description": "Перевод с карты на счет",
-            "from": "Visa Gold 6527183396477720",
-            "to": "Счет 38573816654581789611",
-        }
+def test_process_bank_search_no_transact(list_transactions):
+    """Тест на корректную фильтрацию при отсутствии транзакций по заданному слову"""
+    assert process_bank_search(list_transactions, "открытие") == []
 
 
-@pytest.fixture()
-def get_transactions_rub():
-    return {
-            "id": 484201274,
-            "state": "EXECUTED",
-            "date": "2019-04-11T23:10:21.514616",
-            "operationAmount": {"amount": "62621.51", "currency": {"name": "руб.", "code": "RUB"}},
-            "description": "Перевод с карты на карту",
-            "from": "МИР 8193813157568899",
-            "to": "МИР 9425591958944146",
-        }
+def test_process_bank_operations(list_transactions):
+    """Тест на корректную фильтрацию по заданной категории и выведение количества операций в каждой категории."""
+    assert process_bank_operations(list_transactions, ["Перевод организации"]) == {"Перевод организации": 2}
+    assert process_bank_operations(list_transactions, ["Перевод с карты на карту"]) == {"Перевод с карты на карту": 1}
